@@ -41,6 +41,10 @@ def main():
         sys.exit("entry must be 1-280 characters, got %d" % len(text))
     if not lines[0].endswith("wait one week."):
         sys.exit("line one must end with the warning to wait one week")
+    if "Monday 3 June 2019" not in lines[0]:
+        # The warning is only sharp if it names the real moment:
+        # the date must never silently go missing from line one.
+        sys.exit("line one must name the specific date of the moment")
     if not lines[1].endswith("working for yourself."):
         sys.exit("line two must end with the concrete change")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
